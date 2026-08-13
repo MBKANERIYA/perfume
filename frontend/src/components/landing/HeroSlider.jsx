@@ -9,27 +9,27 @@ import 'swiper/css/effect-fade';
 const slides = [
   {
     id: 1,
-    desktopImage: 'https://placehold.co/1920x800/111111/d4af37?text=Hero+Banner+1',
-    mobileImage: 'https://placehold.co/800x800/111111/d4af37?text=Hero+Banner+1',
-    alt: 'Hero Banner 1'
+    desktopImage: '/images/desktop_royal_oudh.png',
+    mobileImage: '/images/mobile_royal_oudh.png',
+    alt: 'Royal Oudh Perfume'
   },
   {
     id: 2,
-    desktopImage: 'https://placehold.co/1920x800/1a1a1a/d4af37?text=Hero+Banner+2',
-    mobileImage: 'https://placehold.co/800x800/1a1a1a/d4af37?text=Hero+Banner+2',
-    alt: 'Hero Banner 2'
+    desktopImage: '/images/desktop_imperial_gold.png',
+    mobileImage: '/images/mobile_imperial_gold.png',
+    alt: 'Imperial Gold Perfume'
   },
   {
     id: 3,
-    desktopImage: 'https://placehold.co/1920x800/222222/d4af37?text=Hero+Banner+3',
-    mobileImage: 'https://placehold.co/800x800/222222/d4af37?text=Hero+Banner+3',
-    alt: 'Bodywash Loofah Pouch Banner'
+    desktopImage: '/images/desktop_velvet_lavender.png',
+    mobileImage: '/images/mobile_velvet_lavender.png',
+    alt: 'Velvet Lavender Perfume'
   },
   {
     id: 4,
-    desktopImage: 'https://placehold.co/1920x800/2a2a2a/d4af37?text=Hero+Banner+4',
-    mobileImage: 'https://placehold.co/800x800/2a2a2a/d4af37?text=Hero+Banner+4',
-    alt: 'Build Your Own Box Banner'
+    desktopImage: '/images/desktop_crimson_rouge.png',
+    mobileImage: '/images/mobile_crimson_rouge.png',
+    alt: 'Crimson Rouge Perfume'
   }
 ];
 
