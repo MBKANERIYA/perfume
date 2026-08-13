@@ -27,7 +27,7 @@ export default function CartSidebar() {
         {/* Header */}
         <div className="px-5 py-4 border-b border-gray-200 flex justify-between items-center">
           <h2 className="font-bebas text-2xl uppercase tracking-widest m-0 flex items-center gap-2">
-            YOUR CART <span className="bg-red-600 text-white font-sans font-bold text-[11px] w-5 h-5 rounded-full inline-flex items-center justify-center pb-[2px]">{cartItems.length}</span>
+            YOUR CART <span className="bg-red-600 text-white font-sans font-bold text-[11px] w-5 h-5 rounded-full inline-flex items-center justify-center pb-[2px] pl-[2px]">{cartItems.length}</span>
           </h2>
           <button onClick={() => setIsCartOpen(false)} className="text-gray-400 hover:text-black">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
