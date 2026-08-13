@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import SearchOverlay from './SearchOverlay';
@@ -41,8 +42,8 @@ function NavItem({ item }) {
       onMouseEnter={() => hasDropdown && setOpen(true)}
       onMouseLeave={() => hasDropdown && setOpen(false)}
     >
-      <a
-        href={item.href}
+      <Link
+        to={item.href}
         className="text-gold hover:text-gold-light text-[11.5px] font-semibold uppercase tracking-[1.2px] px-3 py-2 whitespace-nowrap font-montserrat relative transition-all duration-300 inline-flex items-center gap-1"
       >
         {item.label}
@@ -56,7 +57,7 @@ function NavItem({ item }) {
           </svg>
         )}
         <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-[70%] h-[1.5px] bg-gradient-to-r from-transparent via-gold to-transparent transition-all duration-300" />
-      </a>
+      </Link>
 
       {/* Dropdown - adjusted for larger list */}
       {hasDropdown && (
@@ -67,13 +68,13 @@ function NavItem({ item }) {
           }`}
         >
           {item.dropdown.map((sub) => (
-            <a
+            <Link
               key={sub.href}
-              href={sub.href}
+              to={sub.href}
               className="block px-6 py-2.5 text-gold hover:text-gold-light text-xs font-medium uppercase tracking-[1px] font-montserrat transition-all duration-250 hover:bg-gold/10 hover:pl-[30px]"
             >
               {sub.label}
-            </a>
+            </Link>
           ))}
         </div>
       )}
@@ -117,14 +118,14 @@ export default function Header() {
         {/* Main Header */}
         <div className="flex items-center justify-between px-4 md:px-10 py-3 max-w-[1400px] mx-auto">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0 flex flex-col items-center hover:scale-[1.03] transition-transform duration-300">
+          <Link to="/" className="flex-shrink-0 flex flex-col items-center hover:scale-[1.03] transition-transform duration-300">
             <span className="font-cinzel text-[32px] font-bold text-gold uppercase tracking-[6px] leading-none whitespace-nowrap">
               KIZ
             </span>
             <span className="font-montserrat text-[10px] font-semibold text-gold/80 uppercase tracking-[10px] mt-1 ml-2">
               Perfumes
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-2 flex-1 px-8 justify-center">
@@ -200,23 +201,25 @@ export default function Header() {
                   </button>
                   <div className={`pl-4 overflow-hidden transition-all duration-300 ${mobileDropdowns[item.label] ? 'max-h-60' : 'max-h-0'}`}>
                     {item.dropdown.map((sub) => (
-                      <a
+                      <Link
                         key={sub.href}
-                        href={sub.href}
+                        to={sub.href}
+                        onClick={() => setMobileOpen(false)}
                         className="block text-gold/80 hover:text-gold-light text-xs font-medium uppercase tracking-[1px] py-2.5 font-montserrat transition-colors"
                       >
                         {sub.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </>
               ) : (
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
+                  onClick={() => setMobileOpen(false)}
                   className="block text-gold text-[13px] font-semibold uppercase tracking-[1.2px] py-3.5 border-b border-gold/[0.08] font-montserrat"
                 >
                   {item.label}
-                </a>
+                </Link>
               )}
             </div>
           ))}
