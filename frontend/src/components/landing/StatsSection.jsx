@@ -1,11 +1,11 @@
 export default function StatsSection() {
   return (
-    <section className="w-full bg-[#fcfaf7] py-16">
+    <section className="w-full bg-[#fcfaf7] py-10 md:py-16">
       <div className="w-full px-4 md:px-10 max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-gray-200">
           
           {/* Stat 1 */}
-          <div className="flex items-center justify-center gap-5 pt-6 md:pt-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-5 px-2 md:px-6">
             {/* Custom SVG Icon for People/Chat */}
             <div className="text-gold flex-shrink-0">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
@@ -13,7 +13,7 @@ export default function StatsSection() {
                 <path d="M21 2h-6c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h2l3 3v-3h1c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
               </svg>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center md:text-left">
               <h3 className="font-bebas text-4xl md:text-5xl text-gold m-0 tracking-wide">
                 15,000+
               </h3>
@@ -24,7 +24,7 @@ export default function StatsSection() {
           </div>
 
           {/* Stat 2 */}
-          <div className="flex items-center justify-center gap-5 pt-8 md:pt-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-5 px-2 md:px-6">
             {/* Custom SVG Icon for Stars */}
             <div className="text-gold flex-shrink-0 flex flex-col items-center">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="mb-0.5">
@@ -37,7 +37,7 @@ export default function StatsSection() {
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center md:text-left">
               <h3 className="font-bebas text-4xl md:text-5xl text-gold m-0 tracking-wide">
                 9/10
               </h3>
@@ -48,7 +48,7 @@ export default function StatsSection() {
           </div>
 
           {/* Stat 3 */}
-          <div className="flex items-center justify-center gap-5 pt-8 md:pt-0">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-5 px-2 md:px-6">
             {/* Custom SVG Icon for Perfume Bottle with Heart */}
             <div className="text-gold flex-shrink-0">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
@@ -57,7 +57,7 @@ export default function StatsSection() {
                 <path d="M12 17.2c-1.38 0-2.5-1.12-2.5-2.5 0-1.58 2.5-4.64 2.5-4.64s2.5 3.06 2.5 4.64c0 1.38-1.12 2.5-2.5 2.5z" />
               </svg>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col text-center md:text-left">
               <h3 className="font-bebas text-4xl md:text-5xl text-gold m-0 tracking-wide">
                 8/10
               </h3>
