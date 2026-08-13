@@ -47,7 +47,7 @@ export default function RiskFreeSection() {
           </div>
 
           {/* Right Columns: Steps Grid */}
-          <div className="lg:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+          <div className="lg:w-3/4 grid grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step, index) => (
               <div key={index} className="flex flex-col items-start">
                 {/* Step Number Circle */}
