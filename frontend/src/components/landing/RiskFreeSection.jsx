@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const steps = [
   {
     number: '1',
@@ -34,12 +36,12 @@ export default function RiskFreeSection() {
               TRY OUR FRAGRANCES<br />RISK FREE
             </h2>
 
-            <a
-              href="/collections/trial-set"
+            <Link
+              to="/shop-all"
               className="bg-gold hover:bg-gold-light text-black font-montserrat font-bold text-sm uppercase tracking-widest py-3 px-10 transition-colors duration-300 inline-block mb-3"
             >
               TRY NOW
-            </a>
+            </Link>
 
             <p className="font-montserrat text-white/60 text-[10px] uppercase tracking-wider">
               *T&C Applied
