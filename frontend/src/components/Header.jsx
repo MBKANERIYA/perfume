@@ -176,9 +176,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <nav
-          className={`lg:hidden fixed top-0 right-0 w-[300px] h-screen bg-[#0a0a0a] flex flex-col pt-20 px-8 pb-8 z-[100000] overflow-y-auto border-l border-gold/20 shadow-[-10px_0_40px_rgba(0,0,0,0.5)] transition-transform duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] ${
+          className={`lg:hidden fixed top-0 right-0 w-[300px] h-screen bg-[#0a0a0a] flex flex-col pt-20 px-8 pb-8 z-[100000] overflow-y-auto border-l border-gold/20 shadow-[-10px_0_40px_rgba(0,0,0,0.5)] transition-transform duration-700 ease-in-out ${
             mobileOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -228,12 +227,12 @@ export default function Header() {
       </header>
 
       {/* Mobile Overlay */}
-      {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black/60 z-[99998]"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black/60 z-[99998] backdrop-blur-sm transition-opacity duration-700 ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setMobileOpen(false)}
+      />
     </>
   );
 }
