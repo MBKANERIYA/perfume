@@ -16,8 +16,8 @@ export default function ProductHero({ product }) {
 
   if (!product) return null;
 
-  // Mock a few thumbnail images by reusing the main image for now
-  const images = [product.image, product.image, product.image, product.image];
+  // Use product images if available, otherwise fallback to single image
+  const images = product.images || [product.image];
 
   return (
     <section className="w-full bg-white px-4 md:px-10 py-10 max-w-[1400px] mx-auto">
@@ -26,19 +26,21 @@ export default function ProductHero({ product }) {
         {/* Left Side: Image Gallery */}
         <div className="w-full md:w-3/5 flex flex-col-reverse md:flex-row gap-4">
           {/* Thumbnails */}
-          <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:w-[100px] shrink-0 no-scrollbar">
-            {images.map((img, idx) => (
-              <button 
-                key={idx}
-                onClick={() => setActiveImage(img)}
-                className={`w-20 h-20 md:w-full md:h-[100px] shrink-0 border-2 transition-all flex items-center justify-center ${
-                  activeImage === img ? 'border-gold' : 'border-transparent'
-                } bg-[#f3e7db]`}
-              >
-                <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain p-1" />
-              </button>
-            ))}
-          </div>
+          {images.length > 1 && (
+            <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:w-[100px] shrink-0 no-scrollbar">
+              {images.map((img, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => setActiveImage(img)}
+                  className={`w-20 h-20 md:w-full md:h-[100px] shrink-0 border-2 transition-all flex items-center justify-center ${
+                    activeImage === img ? 'border-gold' : 'border-transparent'
+                  } bg-[#f3e7db]`}
+                >
+                  <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain p-1" />
+                </button>
+              ))}
+            </div>
+          )}
           
           {/* Main Image */}
           <div className="w-full aspect-square md:aspect-auto md:h-[600px] bg-[#f3e7db] relative flex items-center justify-center">
