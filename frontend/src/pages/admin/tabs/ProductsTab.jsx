@@ -140,22 +140,22 @@ export default function ProductsTab() {
   return (
     <div className="animate-fade-in flex flex-col h-full relative">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
+        <div className="mb-4 md:mb-0">
           <h2 className="font-bebas text-3xl tracking-widest text-black mb-1 uppercase">Products Inventory</h2>
           <p className="text-gray-500 text-sm">Manage your product catalog ({products.length} total items)</p>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
           <input 
             type="text" 
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border border-gray-200 px-4 py-2 rounded text-sm min-w-[250px] focus:outline-none focus:border-gold"
+            className="border border-gray-200 px-4 py-3 sm:py-2 rounded text-sm w-full md:min-w-[250px] focus:outline-none focus:border-gold"
           />
           <button 
             onClick={openAddModal}
-            className="bg-black text-white px-4 py-2 text-xs font-bold tracking-widest uppercase rounded hover:bg-gold transition-colors"
+            className="bg-black text-white px-4 py-3 sm:py-2 text-xs font-bold tracking-widest uppercase rounded hover:bg-gold transition-colors whitespace-nowrap"
           >
             Add New
           </button>
@@ -168,8 +168,8 @@ export default function ProductsTab() {
             <div className="w-8 h-8 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : (
-          <div className="overflow-x-auto flex-1">
-            <table className="w-full text-left border-collapse min-w-[600px]">
+          <div className="overflow-x-auto flex-1 custom-scrollbar">
+            <table className="w-full text-left border-collapse min-w-[800px] md:min-w-0">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-100 font-montserrat text-xs text-gray-500 uppercase tracking-widest">
                   <th className="px-6 py-4 font-bold">Product</th>
@@ -187,8 +187,8 @@ export default function ProductsTab() {
                           <img src={product.image} alt={product.title} className="max-w-full max-h-full object-contain" />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-black">{product.title}</p>
-                          <p className="text-xs text-gray-400">{product.tagline}</p>
+                          <p className="text-sm font-bold text-black whitespace-normal md:whitespace-nowrap line-clamp-2 md:line-clamp-none">{product.title}</p>
+                          <p className="text-xs text-gray-400 whitespace-normal md:whitespace-nowrap line-clamp-1">{product.tagline}</p>
                         </div>
                       </div>
                     </td>
@@ -236,8 +236,8 @@ export default function ProductsTab() {
 
       {/* Modal Overlay */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[500px] overflow-hidden animate-slide-up">
+        <div className="fixed inset-0 bg-black/60 z-[100000] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[500px] max-h-[90vh] overflow-y-auto custom-scrollbar animate-slide-up">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center">
               <h3 className="font-bebas text-2xl tracking-widest text-black m-0 uppercase">
                 {isEditMode ? 'Edit Product' : 'Add New Product'}
@@ -258,7 +258,7 @@ export default function ProductsTab() {
                 <input type="text" value={formData.tagline} onChange={e => setFormData({...formData, tagline: e.target.value})} className="w-full border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-gold" />
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Price (₹)</label>
                   <input required type="number" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full border border-gray-200 rounded p-3 text-sm focus:outline-none focus:border-gold" />

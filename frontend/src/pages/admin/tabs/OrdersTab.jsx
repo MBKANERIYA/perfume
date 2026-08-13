@@ -21,15 +21,15 @@ export default function OrdersTab() {
   return (
     <div className="animate-fade-in flex flex-col h-full">
       <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
+        <div className="mb-4 md:mb-0">
           <h2 className="font-bebas text-3xl tracking-widest text-black mb-1 uppercase">Recent Orders</h2>
           <p className="text-gray-500 text-sm">View and manage customer orders</p>
         </div>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex-1 flex flex-col">
-        <div className="overflow-x-auto flex-1">
-          <table className="w-full text-left border-collapse min-w-[700px]">
+        <div className="overflow-x-auto flex-1 custom-scrollbar">
+          <table className="w-full text-left border-collapse min-w-[800px] md:min-w-0">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-100 font-montserrat text-xs text-gray-500 uppercase tracking-widest">
                 <th className="px-6 py-4 font-bold">Order ID</th>
@@ -59,7 +59,7 @@ export default function OrdersTab() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-black font-bold text-xs uppercase tracking-widest hover:text-gold transition-colors">
+                    <button className="text-black font-bold text-xs uppercase tracking-widest hover:text-gold transition-colors whitespace-nowrap">
                       View Details
                     </button>
                   </td>
