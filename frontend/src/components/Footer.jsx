@@ -11,12 +11,12 @@ export default function Footer() {
         <p className="font-montserrat text-gold-light text-sm md:text-base tracking-widest uppercase mb-6">
           WILD DEALS ARE WAITING. MAKE SURE NOT TO MISS OUT!
         </p>
-        <a
-          href="/login"
+        <Link
+          to="/login"
           className="inline-block bg-white text-black hover:bg-gold transition-colors duration-300 font-bebas text-xl md:text-2xl tracking-widest uppercase py-3 px-8"
         >
           GET IN. NOW.
-        </a>
+        </Link>
       </div>
 
       {/* Main Footer Links */}
