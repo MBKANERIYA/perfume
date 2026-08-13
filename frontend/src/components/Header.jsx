@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import SearchOverlay from './SearchOverlay';
 import LoginOverlay from './LoginOverlay';
 
@@ -85,8 +86,8 @@ export default function Header() {
   const [mobileDropdowns, setMobileDropdowns] = useState({});
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   
+  const { isLoginOpen, setIsLoginOpen } = useAuth();
   const { cartItems, setIsCartOpen } = useCart();
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
