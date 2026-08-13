@@ -96,15 +96,15 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto">
 
           {/* Mobile Layout (2 discrete flex columns) */}
-          <div className="flex md:hidden gap-x-4">
+          <div className="flex md:hidden gap-x-10">
             {/* Left Column */}
-            <div className="w-1/2 flex flex-col gap-y-10">
+            <div className="flex-1 flex flex-col gap-y-10">
               {ShopSection}
               {ContactSection}
               {FollowUsSection}
             </div>
             {/* Right Column */}
-            <div className="w-1/2 flex flex-col gap-y-10">
+            <div className="flex-1 flex flex-col gap-y-10">
               {InfoSection}
               {OtherSection}
             </div>
