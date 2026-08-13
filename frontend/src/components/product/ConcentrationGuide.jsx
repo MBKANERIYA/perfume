@@ -8,7 +8,7 @@ export default function ConcentrationGuide() {
           <img 
             src="https://placehold.co/1200x300/fdfaf5/111111?text=PERFUME+CONCENTRATION+GUIDE+(Desktop)" 
             alt="Perfume Concentration Guide" 
-            className="w-full h-auto object-contain rounded-md"
+            className="w-full h-auto md:h-[250px] lg:h-[300px] md:object-cover md:object-center rounded-md"
           />
         </picture>
       </div>

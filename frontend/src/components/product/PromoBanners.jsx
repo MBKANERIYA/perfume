@@ -8,7 +8,7 @@ export default function PromoBanners() {
         <img 
           src="/images/desktop_promo_friend.png" 
           alt="Promo Banner 1" 
-          className="w-full h-auto object-cover rounded-md"
+          className="w-full h-auto md:h-[250px] lg:h-[300px] md:object-cover md:object-center rounded-md"
         />
       </picture>
       
@@ -19,7 +19,7 @@ export default function PromoBanners() {
         <img 
           src="https://placehold.co/1920x400/ebebeb/111111?text=BUY+ANY+3+FOR+1700+(Desktop)" 
           alt="Promo Banner 2" 
-          className="w-full h-auto object-cover rounded-md"
+          className="w-full h-auto md:h-[250px] lg:h-[300px] md:object-cover md:object-center rounded-md"
         />
       </picture>
     </section>
