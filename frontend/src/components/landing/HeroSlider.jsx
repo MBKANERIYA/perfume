@@ -46,7 +46,7 @@ export default function HeroSlider() {
           bulletActiveClass: '!bg-gold !w-8 !rounded-full',
         }}
         loop={true}
-        className="w-full h-auto min-h-[40vh] md:min-h-[60vh] lg:min-h-[80vh]"
+        className="w-full aspect-square md:aspect-auto md:min-h-[60vh] lg:min-h-[80vh]"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>

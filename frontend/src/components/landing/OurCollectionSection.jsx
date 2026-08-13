@@ -52,7 +52,7 @@ const collections = [
 
 export default function OurCollectionSection() {
   return (
-    <section className="w-full bg-white py-16">
+    <section className="w-full bg-white pt-10 pb-16 md:py-16">
       {/* Section Title */}
       <div className="text-center mb-10 px-4">
         <h2 className="font-bebas text-4xl md:text-[42px] tracking-wide text-black uppercase m-0">
