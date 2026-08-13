@@ -13,7 +13,7 @@ export default function LoginOverlay({ isOpen, onClose }) {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (!isOpen) return null;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,12 +49,12 @@ export default function LoginOverlay({ isOpen, onClose }) {
     <>
       {/* Overlay */}
       <div 
-        className="fixed inset-0 bg-black/50 z-[100000] backdrop-blur-sm transition-opacity"
+        className={`fixed inset-0 bg-black/50 z-[100000] backdrop-blur-sm transition-opacity duration-700 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={onClose}
       />
 
       {/* Sidebar */}
-      <div className="fixed top-0 right-0 h-full w-full max-w-[400px] bg-white z-[100001] flex flex-col shadow-2xl animate-slide-left">
+      <div className={`fixed top-0 right-0 h-full w-full max-w-[400px] bg-white z-[100001] flex flex-col shadow-2xl transition-transform duration-700 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         
         {/* Header */}
         <div className="px-5 py-4 border-b border-gray-200 flex justify-between items-center">
