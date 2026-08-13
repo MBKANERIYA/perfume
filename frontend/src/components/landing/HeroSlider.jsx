@@ -61,7 +61,7 @@ export default function HeroSlider() {
                 <img
                   src={slide.desktopImage}
                   alt={slide.alt}
-                  className="w-full h-auto block"
+                  className="w-full h-auto md:h-[500px] lg:h-[650px] md:object-cover md:object-center block"
                   loading={slide.id === 1 ? 'eager' : 'lazy'}
                 />
               </picture>
