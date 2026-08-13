@@ -27,8 +27,8 @@ export default function Contact() {
             <div className="space-y-6 text-[15px] text-gray-800 leading-relaxed font-medium">
               <p>Office No 201 Unitech cyber park Sector 39, Gurugram Haryana 122003</p>
               <p>
-                <a href="mailto:support@blabliblulife.com" className="hover:text-gold transition-colors underline decoration-gray-300 underline-offset-4">
-                  Email - support@blabliblulife.com
+                <a href="mailto:support@kizperfumes.com" className="hover:text-gold transition-colors underline decoration-gray-300 underline-offset-4">
+                  Email - support@kizperfumes.com
                 </a>
               </p>
               <p>Phone no. - +91-9220508119</p>

@@ -19,7 +19,7 @@ const steps = [
   {
     number: '4',
     title: '100% Refund No Questions Asked*',
-    description: 'Simply email at support@blabliblulife.com within 48 hours of delivery. '
+    description: 'Simply email at support@kizperfumes.com within 48 hours of delivery. '
   }
 ];
 

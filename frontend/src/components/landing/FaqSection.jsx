@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: 'HOW DO I CONTACT CUSTOMER SUPPORT?',
-    answer: 'You can reach out to us via email at support@blabliblulife.com or WhatsApp us at our support number provided on the contact page.'
+    answer: 'You can reach out to us via email at support@kizperfumes.com or WhatsApp us at our support number provided on the contact page.'
   },
   {
     question: 'DO YOU HAVE BULK PURCHASE OFFERS?',
