@@ -46,15 +46,15 @@ export default function HeroSlider() {
           bulletActiveClass: '!bg-gold !w-8 !rounded-full',
         }}
         loop={true}
-        className="w-full aspect-square md:aspect-auto md:min-h-[60vh] lg:min-h-[80vh]"
+        className="w-full"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="w-full h-full relative">
+            <div className="w-full relative flex">
               <img
                 src={slide.image}
                 alt={slide.alt}
-                className="w-full h-full object-cover"
+                className="w-full h-auto block"
                 loading={slide.id === 1 ? 'eager' : 'lazy'}
               />
               {/* Optional overlay if you want text on top of images later */}

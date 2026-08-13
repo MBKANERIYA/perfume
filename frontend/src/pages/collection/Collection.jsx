@@ -55,11 +55,11 @@ export default function Collection() {
     <main className="min-h-screen bg-white flex flex-col">
       
       {/* Top Image Banner */}
-      <div className="w-full h-[200px] md:h-[300px] lg:h-[400px] relative overflow-hidden bg-[#fdfaf5]">
+      <div className="w-full bg-[#fdfaf5] flex">
         <img 
           src="https://placehold.co/1920x400/e6d7c3/111111?text=FOR+YOUR+FIRST+BEST+FRIEND+-+UPTO+40%25+OFF" 
           alt="Collection Promotional Banner" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto block"
         />
       </div>
 
