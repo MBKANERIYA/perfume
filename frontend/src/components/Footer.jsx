@@ -101,12 +101,13 @@ export default function Footer() {
             <div className="flex-1 flex flex-col gap-y-10">
               {ShopSection}
               {ContactSection}
-              {FollowUsSection}
+              {OtherSection}
+
             </div>
             {/* Right Column */}
             <div className="flex-1 flex flex-col gap-y-10">
-              {InfoSection}
-              {OtherSection}
+              {InfoSection}              
+              {FollowUsSection}
             </div>
           </div>
 
