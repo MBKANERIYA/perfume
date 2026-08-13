@@ -9,22 +9,26 @@ import 'swiper/css/effect-fade';
 const slides = [
   {
     id: 1,
-    image: 'https://placehold.co/1920x800/111111/d4af37?text=Hero+Banner+1',
+    desktopImage: 'https://placehold.co/1920x800/111111/d4af37?text=Hero+Banner+1',
+    mobileImage: 'https://placehold.co/800x800/111111/d4af37?text=Hero+Banner+1',
     alt: 'Hero Banner 1'
   },
   {
     id: 2,
-    image: 'https://placehold.co/1920x800/1a1a1a/d4af37?text=Hero+Banner+2',
+    desktopImage: 'https://placehold.co/1920x800/1a1a1a/d4af37?text=Hero+Banner+2',
+    mobileImage: 'https://placehold.co/800x800/1a1a1a/d4af37?text=Hero+Banner+2',
     alt: 'Hero Banner 2'
   },
   {
     id: 3,
-    image: 'https://placehold.co/1920x800/222222/d4af37?text=Hero+Banner+3',
+    desktopImage: 'https://placehold.co/1920x800/222222/d4af37?text=Hero+Banner+3',
+    mobileImage: 'https://placehold.co/800x800/222222/d4af37?text=Hero+Banner+3',
     alt: 'Bodywash Loofah Pouch Banner'
   },
   {
     id: 4,
-    image: 'https://placehold.co/1920x800/2a2a2a/d4af37?text=Hero+Banner+4',
+    desktopImage: 'https://placehold.co/1920x800/2a2a2a/d4af37?text=Hero+Banner+4',
+    mobileImage: 'https://placehold.co/800x800/2a2a2a/d4af37?text=Hero+Banner+4',
     alt: 'Build Your Own Box Banner'
   }
 ];
@@ -51,12 +55,16 @@ export default function HeroSlider() {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="w-full relative flex">
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                className="w-full h-auto block"
-                loading={slide.id === 1 ? 'eager' : 'lazy'}
-              />
+              <picture className="w-full">
+                <source media="(max-width: 767px)" srcSet={slide.mobileImage} />
+                <source media="(min-width: 768px)" srcSet={slide.desktopImage} />
+                <img
+                  src={slide.desktopImage}
+                  alt={slide.alt}
+                  className="w-full h-auto block"
+                  loading={slide.id === 1 ? 'eager' : 'lazy'}
+                />
+              </picture>
               {/* Optional overlay if you want text on top of images later */}
               <div className="absolute inset-0 bg-black/10"></div>
             </div>

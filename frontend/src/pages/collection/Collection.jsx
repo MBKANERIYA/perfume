@@ -56,11 +56,15 @@ export default function Collection() {
       
       {/* Top Image Banner */}
       <div className="w-full bg-[#fdfaf5] flex">
-        <img 
-          src="https://placehold.co/1920x400/e6d7c3/111111?text=FOR+YOUR+FIRST+BEST+FRIEND+-+UPTO+40%25+OFF" 
-          alt="Collection Promotional Banner" 
-          className="w-full h-auto block"
-        />
+        <picture className="w-full">
+          <source media="(max-width: 767px)" srcSet="https://placehold.co/800x800/e6d7c3/111111?text=FOR+YOUR+FIRST+BEST+FRIEND+-+UPTO+40%25+OFF" />
+          <source media="(min-width: 768px)" srcSet="https://placehold.co/1920x400/e6d7c3/111111?text=FOR+YOUR+FIRST+BEST+FRIEND+-+UPTO+40%25+OFF" />
+          <img 
+            src="https://placehold.co/1920x400/e6d7c3/111111?text=FOR+YOUR+FIRST+BEST+FRIEND+-+UPTO+40%25+OFF" 
+            alt="Collection Promotional Banner" 
+            className="w-full h-auto block"
+          />
+        </picture>
       </div>
 
       {/* Collection Content */}
