@@ -58,9 +58,6 @@ export default function CartSidebar() {
                     <div className="flex-1 flex flex-col justify-between">
                       <div className="flex justify-between items-start gap-2">
                         <h4 className="font-bebas text-lg leading-tight uppercase m-0">{item.title || item.name}</h4>
-                        <button onClick={() => removeFromCart(item.id)} className="text-gray-400 hover:text-red-500 p-1">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                        </button>
                       </div>
                       <div className="flex justify-between items-end mt-2">
                         <div className="flex items-center border border-gray-300 rounded-sm">
