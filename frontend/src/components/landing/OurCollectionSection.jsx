@@ -86,7 +86,7 @@ export default function OurCollectionSection() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain p-3 group-hover/card:scale-105 transition-transform duration-500"
                   />
                 </Link>
 
