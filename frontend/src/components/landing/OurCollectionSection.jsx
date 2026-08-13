@@ -80,24 +80,24 @@ export default function OurCollectionSection() {
         >
           {collections.map((item) => (
             <SwiperSlide key={item.id} className="h-auto flex">
-              <div className="flex flex-col w-full border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 h-full group/card bg-white">
+              <div className="flex flex-col w-full border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 group/card bg-white">
                 {/* Image Container */}
                 <Link to={item.link} className="w-full aspect-square overflow-hidden bg-[#f3e7db] block">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-contain p-4 group-hover/card:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                   />
                 </Link>
 
                 {/* Content */}
-                <div className="p-4 md:p-5 flex flex-col flex-grow">
+                <div className="p-4 md:p-5 flex flex-col">
                   <Link to={item.link} className="text-decoration-none block mb-1">
                     <h3 className="font-bebas text-xl md:text-[22px] tracking-wide text-black uppercase m-0 group-hover/card:text-gold transition-colors duration-300 line-clamp-1">
                       {item.title}
                     </h3>
                   </Link>
-                  <p className="font-montserrat text-gray-700 text-xs md:text-[13px] mb-4">
+                  <p className="font-montserrat text-gray-700 text-xs md:text-[13px] mb-4 line-clamp-1">
                     {item.price}
                   </p>
 
