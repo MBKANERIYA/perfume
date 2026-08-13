@@ -17,12 +17,12 @@ export default function CartSidebar() {
     <>
       {/* Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/50 z-[100000] backdrop-blur-sm transition-opacity duration-300 ${isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black/50 z-[100000] backdrop-blur-sm transition-opacity duration-700 ${isCartOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsCartOpen(false)}
       />
 
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-full max-w-[400px] bg-white z-[100001] flex flex-col shadow-2xl transition-transform duration-300 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full max-w-[400px] bg-white z-[100001] flex flex-col shadow-2xl transition-transform duration-700 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         
         {/* Header */}
         <div className="px-5 py-4 border-b border-gray-200 flex justify-between items-center">
