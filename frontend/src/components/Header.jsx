@@ -114,9 +114,9 @@ export default function Header() {
       >
 
         {/* Main Header */}
-        <div className="flex items-center justify-between px-10 py-3 max-w-[1400px] mx-auto">
+        <div className="flex items-center justify-between px-4 md:px-10 py-3 max-w-[1400px] mx-auto">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0 flex flex-col items-center hover:scale-[1.03] transition-transform duration-300 min-w-[120px]">
+          <a href="/" className="flex-shrink-0 flex flex-col items-center hover:scale-[1.03] transition-transform duration-300">
             <span className="font-cinzel text-[32px] font-bold text-gold uppercase tracking-[6px] leading-none whitespace-nowrap">
               KIZ
             </span>
@@ -133,7 +133,7 @@ export default function Header() {
           </nav>
 
           {/* Icons */}
-          <div className="flex items-center gap-5 flex-shrink-0">
+          <div className="flex items-center gap-3 md:gap-5 flex-shrink-0">
             {/* Account */}
             <button onClick={() => setIsLoginOpen(true)} className="text-gold hover:text-gold-light hover:-translate-y-0.5 transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(212,175,55,0.3)] bg-transparent border-none cursor-pointer" aria-label="My Account">
               <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
