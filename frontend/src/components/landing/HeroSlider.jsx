@@ -9,27 +9,27 @@ import 'swiper/css/effect-fade';
 const slides = [
   {
     id: 1,
-    desktopImage: '/images/desktop_royal_oudh.png',
-    mobileImage: '/images/mobile_royal_oudh.png',
-    alt: 'Royal Oudh Perfume'
-  },
-  {
-    id: 2,
-    desktopImage: '/images/desktop_imperial_gold.png',
-    mobileImage: '/images/mobile_imperial_gold.png',
-    alt: 'Imperial Gold Perfume'
-  },
-  {
-    id: 3,
     desktopImage: '/images/desktop_velvet_lavender.png',
     mobileImage: '/images/mobile_velvet_lavender.png',
     alt: 'Velvet Lavender Perfume'
   },
   {
-    id: 4,
+    id: 2,
     desktopImage: '/images/desktop_crimson_rouge.png',
     mobileImage: '/images/mobile_crimson_rouge.png',
     alt: 'Crimson Rouge Perfume'
+  },
+  {
+    id: 3,
+    desktopImage: '/images/desktop_royal_oudh.png',
+    mobileImage: '/images/mobile_royal_oudh.png',
+    alt: 'Royal Oudh Perfume'
+  },
+  {
+    id: 4,
+    desktopImage: '/images/desktop_imperial_gold.png',
+    mobileImage: '/images/mobile_imperial_gold.png',
+    alt: 'Imperial Gold Perfume'
   }
 ];
 
@@ -73,7 +73,7 @@ export default function HeroSlider() {
 
 
       </Swiper>
-      
+
       <style>{`
         .swiper-pagination {
           bottom: 24px !important;

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function PromoBanners() {
   return (
     <section className="w-full flex flex-col gap-4 py-8 bg-white max-w-[1600px] mx-auto px-4 md:px-10">
@@ -13,9 +15,9 @@ export default function PromoBanners() {
             Gift a memory that lasts forever. Explore our luxury collection designed to celebrate the ones you cherish most.
           </p>
           <div>
-            <button className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black transition-all duration-300 font-montserrat font-bold text-[10px] md:text-xs uppercase tracking-[2px] px-6 py-3">
+            <Link to="/shop-all" className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black transition-all duration-300 font-montserrat font-bold text-[10px] md:text-xs uppercase tracking-[2px] px-6 py-3 inline-block">
               Shop Gifts
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -51,9 +53,9 @@ export default function PromoBanners() {
             Mix and match your favorite signature scents. Perfect for building your ultimate fragrance wardrobe.
           </p>
           <div>
-            <button className="bg-gold border border-gold text-black hover:bg-transparent hover:text-gold transition-all duration-300 font-montserrat font-bold text-[10px] md:text-xs uppercase tracking-[2px] px-6 py-3">
+            <Link to="/shop-all" className="bg-gold border border-gold text-black hover:bg-transparent hover:text-gold transition-all duration-300 font-montserrat font-bold text-[10px] md:text-xs uppercase tracking-[2px] px-6 py-3 inline-block">
               Claim Offer
-            </button>
+            </Link>
           </div>
         </div>
       </div>
