@@ -58,9 +58,11 @@ export default function UsersTab() {
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={user._id || user.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
-                      <span className="font-bold text-black">#{user.id}</span>
+                      <span className="font-bold text-black">
+                        #{user._id ? user._id.substring(user._id.length - 6) : user.id}
+                      </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700 font-bold">
                       {user.name}
