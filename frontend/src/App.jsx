@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header'
 import Landing from './pages/landing/Landing'
@@ -21,11 +21,14 @@ function App() {
     }
   }, []);
 
+  const location = useLocation();
+  const isAdminPath = location.pathname.startsWith('/admin');
+
   return (
     <>
       <ScrollToTop />
-      <Header />
-      <CartSidebar />
+      {!isAdminPath && <Header />}
+      {!isAdminPath && <CartSidebar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about-us" element={<About />} />
@@ -43,7 +46,7 @@ function App() {
         {/* Catch-all route for 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {!isAdminPath && <Footer />}
     </>
   )
 }
