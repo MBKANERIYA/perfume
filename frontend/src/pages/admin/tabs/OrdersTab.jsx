@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function OrdersTab() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     fetchOrders();
@@ -103,7 +104,10 @@ export default function OrdersTab() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="text-black font-bold text-xs uppercase tracking-widest hover:text-gold transition-colors whitespace-nowrap">
+                      <button 
+                        onClick={() => setSelectedOrder(order)}
+                        className="text-black font-bold text-xs uppercase tracking-widest hover:text-gold transition-colors whitespace-nowrap"
+                      >
                         View Details
                       </button>
                     </td>
@@ -114,6 +118,90 @@ export default function OrdersTab() {
           </table>
         </div>
       </div>
+
+      {/* Order Details Modal */}
+      {selectedOrder && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+            
+            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+              <div>
+                <h3 className="font-bebas text-2xl tracking-widest text-black">Order {selectedOrder.orderId}</h3>
+                <p className="text-xs text-gray-500">{new Date(selectedOrder.createdAt).toLocaleString()}</p>
+              </div>
+              <button onClick={() => setSelectedOrder(null)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-8">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-bold text-xs text-gray-400 uppercase tracking-widest mb-3 border-b border-gray-100 pb-2">Customer Info</h4>
+                  <div className="space-y-1 text-sm font-montserrat">
+                    <p className="font-bold text-black">{selectedOrder.customer.firstName} {selectedOrder.customer.lastName}</p>
+                    <p className="text-gray-600">{selectedOrder.customer.email}</p>
+                    <p className="text-gray-600">{selectedOrder.customer.phone}</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="font-bold text-xs text-gray-400 uppercase tracking-widest mb-3 border-b border-gray-100 pb-2">Shipping Address</h4>
+                  <div className="space-y-1 text-sm font-montserrat text-gray-600">
+                    <p>{selectedOrder.customer.address}</p>
+                    <p>{selectedOrder.customer.city}, {selectedOrder.customer.state}</p>
+                    <p>PIN: {selectedOrder.customer.pincode}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-xs text-gray-400 uppercase tracking-widest mb-3 border-b border-gray-100 pb-2">Order Items</h4>
+                <div className="space-y-4">
+                  {selectedOrder.items.map((item, index) => (
+                    <div key={index} className="flex gap-4 items-center">
+                      <div className="w-12 h-12 bg-gray-50 rounded flex items-center justify-center border border-gray-100 overflow-hidden p-1">
+                        {item.image ? <img src={item.image} alt={item.title} className="w-full h-full object-contain" /> : <div className="w-full h-full bg-gray-200"></div>}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-sm text-black">{item.title}</p>
+                        <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+                      </div>
+                      <p className="font-bebas text-lg text-black">₹{item.price * item.quantity}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-gray-100 pt-6">
+                <div className="flex justify-between items-center">
+                  <h4 className="font-bold text-xs text-gray-400 uppercase tracking-widest">Payment Info</h4>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500 mb-1">Method: <span className="font-bold text-black">{selectedOrder.paymentMethod}</span></p>
+                    {getPaymentBadge(selectedOrder.paymentMethod, selectedOrder.paymentStatus)}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="p-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+              <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${getStatusColor(selectedOrder.orderStatus)}`}>
+                {selectedOrder.orderStatus}
+              </span>
+              <div className="text-right flex items-end gap-3">
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Total</span>
+                <span className="font-bebas text-3xl tracking-widest text-black">₹{selectedOrder.totalAmount}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
