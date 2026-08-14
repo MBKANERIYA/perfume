@@ -1,18 +1,27 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('kiz_cart');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { user } = useAuth();
   
+  // Use a dynamic key based on user email, or fallback to guest
+  const storageKey = `kiz_cart_${user?.email || 'guest'}`;
+
+  const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // Load cart when user changes
   useEffect(() => {
-    localStorage.setItem('kiz_cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    const saved = localStorage.getItem(storageKey);
+    setCartItems(saved ? JSON.parse(saved) : []);
+  }, [storageKey]);
+
+  // Save cart when cartItems change
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(cartItems));
+  }, [cartItems, storageKey]);
 
   const addToCart = (product, quantity = 1) => {
     setCartItems(prev => {
