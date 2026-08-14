@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import AdminDashboard from './pages/admin/AdminDashboard'
+import Checkout from './pages/checkout/Checkout'
 import LocomotiveScroll from 'locomotive-scroll'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/checkout" element={<Checkout />} />
         
         {/* Valid Category Routes */}
         <Route path="/shop-all" element={<Collection />} />

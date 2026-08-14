@@ -1,14 +1,12 @@
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { allProducts } from '../../data/products';
-import { Link } from 'react-router-dom';
-import { loadScript } from '../../utils/loadScript';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CartSidebar() {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal, originalTotal, clearCart } = useCart();
   const { user } = useAuth();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
 
   // Mock cross-sell products from allProducts (e.g. grab 3 of them)
   const crossSellProducts = allProducts.slice(0, 3);
@@ -18,94 +16,10 @@ export default function CartSidebar() {
   const amountLeft = freeShippingGoal - cartTotal;
   const progressPercent = Math.min((cartTotal / freeShippingGoal) * 100, 100);
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (cartTotal <= 0) return;
-    
-    setIsProcessing(true);
-    
-    // 1. Load Razorpay script
-    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
-    if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
-      setIsProcessing(false);
-      return;
-    }
-
-    try {
-      // 2. Create order on the backend
-      const result = await fetch('/api/payment/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: cartTotal }),
-      });
-      
-      const order = await result.json();
-
-      if (!order || !order.id) {
-        alert('Server error. Please try again.');
-        setIsProcessing(false);
-        return;
-      }
-
-      // 3. Initialize Razorpay
-      const options = {
-        key: 'rzp_test_Sp8ow2u4uVKQIl', // Hardcoded for frontend as per standard test setup, or fetch from backend
-        amount: order.amount,
-        currency: order.currency,
-        name: 'KIZ Perfumes',
-        description: 'Store Purchase',
-        image: '/logo.png',
-        order_id: order.id,
-        handler: async function (response) {
-          // 4. Verify Payment on backend
-          const verifyResult = await fetch('/api/payment/verify', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          });
-          
-          const verifyData = await verifyResult.json();
-          
-          if (verifyResult.ok) {
-            alert('Payment successful! Your order has been placed.');
-            // Clear cart
-            clearCart();
-            setIsCartOpen(false);
-          } else {
-            alert('Payment verification failed. Please contact support.');
-          }
-        },
-        prefill: {
-          name: user?.name || '',
-          email: user?.email || '',
-          contact: user?.phone || '',
-        },
-        theme: {
-          color: '#000000',
-        },
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      
-      paymentObject.on('payment.failed', function (response) {
-        alert('Payment Failed: ' + response.error.description);
-      });
-      
-      paymentObject.open();
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Something went wrong during checkout.');
-    } finally {
-      setIsProcessing(false);
-    }
+    setIsCartOpen(false);
+    navigate('/checkout');
   };
 
   return (
@@ -207,11 +121,10 @@ export default function CartSidebar() {
               )}
               <button 
                 onClick={handleCheckout} 
-                disabled={isProcessing}
-                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bebas text-xl tracking-widest uppercase py-4 transition-colors flex items-center justify-center gap-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-bebas text-xl tracking-widest uppercase py-4 transition-colors flex items-center justify-center gap-2 rounded"
               >
-                {isProcessing ? 'PROCESSING...' : 'PROCEED TO CHECKOUT'} 
-                {!isProcessing && <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>}
+                PROCEED TO CHECKOUT 
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
               </button>
             </div>
           </>
