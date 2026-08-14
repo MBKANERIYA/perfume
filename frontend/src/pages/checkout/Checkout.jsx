@@ -6,7 +6,7 @@ import { loadScript } from '../../utils/loadScript';
 
 export default function Checkout() {
   const { cartItems, cartTotal, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, setIsLoginOpen } = useAuth();
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -23,11 +23,18 @@ export default function Checkout() {
   });
 
   useEffect(() => {
+    // If not logged in, redirect and open login
+    if (!user) {
+      navigate('/');
+      setIsLoginOpen(true);
+      return;
+    }
+
     // If cart is empty, redirect back to shop
     if (cartItems.length === 0 && !isProcessing) {
       navigate('/shop-all');
     }
-  }, [cartItems, navigate, isProcessing]);
+  }, [user, cartItems, navigate, isProcessing, setIsLoginOpen]);
 
   const handleChange = (e) => {
     setFormData({

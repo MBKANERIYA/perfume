@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function CartSidebar() {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal, originalTotal, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, setIsLoginOpen } = useAuth();
   const navigate = useNavigate();
 
   // Mock cross-sell products from allProducts (e.g. grab 3 of them)
@@ -18,8 +18,14 @@ export default function CartSidebar() {
 
   const handleCheckout = () => {
     if (cartTotal <= 0) return;
+    
     setIsCartOpen(false);
-    navigate('/checkout');
+
+    if (!user) {
+      setIsLoginOpen(true);
+    } else {
+      navigate('/checkout');
+    }
   };
 
   return (
