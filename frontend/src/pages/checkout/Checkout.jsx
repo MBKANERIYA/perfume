@@ -10,6 +10,7 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('Razorpay');
   const [formData, setFormData] = useState({
     firstName: user?.name?.split(' ')[0] || '',
     lastName: user?.name?.split(' ').slice(1).join(' ') || '',
@@ -35,11 +36,53 @@ export default function Checkout() {
     });
   };
 
+  const createDatabaseOrder = async (paymentId = null) => {
+    try {
+      const orderData = {
+        customer: formData,
+        items: cartItems.map(item => ({
+          productId: item.id || item._id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        })),
+        totalAmount: cartTotal,
+        paymentMethod: paymentMethod,
+        paymentId: paymentId
+      };
+
+      const result = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+      
+      return result.ok;
+    } catch (error) {
+      console.error('Error saving order:', error);
+      return false;
+    }
+  };
+
   const handlePayment = async (e) => {
     e.preventDefault();
     if (cartTotal <= 0) return;
     
     setIsProcessing(true);
+
+    if (paymentMethod === 'COD') {
+      const success = await createDatabaseOrder();
+      if (success) {
+        alert('Order placed successfully via Cash on Delivery!');
+        clearCart();
+        navigate('/');
+      } else {
+        alert('Failed to place order. Please try again.');
+      }
+      setIsProcessing(false);
+      return;
+    }
     
     // 1. Load Razorpay script
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
@@ -91,9 +134,15 @@ export default function Checkout() {
           });
           
           if (verifyResult.ok) {
-            alert('Payment successful! Your order has been placed.');
-            clearCart();
-            navigate('/');
+            // 5. Save Order in DB
+            const saved = await createDatabaseOrder(response.razorpay_payment_id);
+            if (saved) {
+              alert('Payment successful! Your order has been placed.');
+              clearCart();
+              navigate('/');
+            } else {
+              alert('Payment verified, but saving order failed. Contact support.');
+            }
           } else {
             alert('Payment verification failed. Please contact support.');
           }
@@ -223,13 +272,33 @@ export default function Checkout() {
               </div>
             </div>
 
+            <div className="border-t border-gray-200 pt-6 mb-8">
+              <h3 className="font-bebas text-xl mb-4 tracking-widest text-black">PAYMENT METHOD</h3>
+              <div className="space-y-3">
+                <label className={`block border ${paymentMethod === 'Razorpay' ? 'border-gold bg-gold/5' : 'border-gray-200'} rounded p-4 cursor-pointer transition-colors flex items-center gap-3`}>
+                  <input type="radio" name="paymentMethod" value="Razorpay" checked={paymentMethod === 'Razorpay'} onChange={() => setPaymentMethod('Razorpay')} className="accent-gold w-4 h-4" />
+                  <div className="flex-1">
+                    <p className="font-bold text-sm text-black">Pay Online (Razorpay)</p>
+                    <p className="text-xs text-gray-500">Credit Card, UPI, Net Banking</p>
+                  </div>
+                </label>
+                <label className={`block border ${paymentMethod === 'COD' ? 'border-gold bg-gold/5' : 'border-gray-200'} rounded p-4 cursor-pointer transition-colors flex items-center gap-3`}>
+                  <input type="radio" name="paymentMethod" value="COD" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="accent-gold w-4 h-4" />
+                  <div className="flex-1">
+                    <p className="font-bold text-sm text-black">Cash on Delivery</p>
+                    <p className="text-xs text-gray-500">Pay when your order arrives</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
             <button 
               type="submit"
               form="checkout-form"
               disabled={isProcessing || cartItems.length === 0}
               className="w-full bg-black hover:bg-gold disabled:bg-gray-400 text-white font-bebas text-2xl tracking-widest uppercase py-4 transition-colors duration-300 flex items-center justify-center gap-2 rounded"
             >
-              {isProcessing ? 'PROCESSING...' : 'PAY NOW'} 
+              {isProcessing ? 'PROCESSING...' : paymentMethod === 'COD' ? 'PLACE ORDER' : 'PAY NOW'} 
             </button>
             <p className="text-center text-[10px] text-gray-400 mt-4 uppercase tracking-widest flex items-center justify-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
