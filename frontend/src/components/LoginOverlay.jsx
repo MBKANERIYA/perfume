@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginOverlay({ isOpen, onClose }) {
   const { user, login, register, logout, loading } = useAuth();
   const [mode, setMode] = useState('login'); // 'login' or 'register'
+  const navigate = useNavigate();
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -82,7 +84,7 @@ export default function LoginOverlay({ isOpen, onClose }) {
               
               <div className="w-full space-y-3">
                 <button 
-                  onClick={() => { onClose(); /* Navigate to profile if implemented */ }} 
+                  onClick={() => { onClose(); navigate('/profile'); }} 
                   className="w-full border border-black text-black font-montserrat text-xs font-bold uppercase tracking-widest py-3 hover:bg-black hover:text-white transition-colors"
                 >
                   View Profile

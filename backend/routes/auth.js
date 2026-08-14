@@ -73,4 +73,28 @@ router.get('/users', async (req, res) => {
   }
 });
 
+// @route   PUT /api/auth/profile
+// @desc    Update user profile (mock)
+router.put('/profile', async (req, res) => {
+  try {
+    const { email, name, phone } = req.body;
+    const userIndex = users.findIndex(u => u.email === email);
+    
+    if (userIndex === -1) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    users[userIndex] = { ...users[userIndex], name, phone };
+    
+    const { password: _, ...updatedUserWithoutPassword } = users[userIndex];
+    res.json({
+      message: 'Profile updated successfully',
+      user: updatedUserWithoutPassword
+    });
+  } catch (err) {
+    console.error('Error updating profile:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

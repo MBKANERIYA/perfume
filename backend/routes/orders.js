@@ -51,4 +51,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET /api/orders/my-orders
+// @desc    Get all orders for a specific user by email
+router.get('/my-orders', async (req, res) => {
+  try {
+    const { email } = req.query;
+    if (!email) {
+      return res.status(400).json({ message: 'Email query parameter is required' });
+    }
+    const orders = await Order.find({ 'customer.email': email }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 module.exports = router;

@@ -70,13 +70,38 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const updateProfile = async (name, phone) => {
+    try {
+      const response = await fetch('/api/auth/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: user.email, name, phone }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Profile update failed');
+      }
+
+      const data = await response.json();
+      setUser(data.user);
+      localStorage.setItem('perfume_user', JSON.stringify(data.user));
+      return data;
+    } catch (error) {
+      console.error('Profile update error:', error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('perfume_user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading, isLoginOpen, setIsLoginOpen }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateProfile, loading, isLoginOpen, setIsLoginOpen }}>
       {children}
     </AuthContext.Provider>
   );
