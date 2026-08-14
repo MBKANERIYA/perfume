@@ -1,13 +1,7 @@
 import React from 'react';
 
 export default function OrdersTab() {
-  const orders = [
-    { id: '#1042', customer: 'Maulik Kaneriya', date: '2026-08-13', total: '₹2,498', status: 'Processing', items: 2 },
-    { id: '#1041', customer: 'Sarah Smith', date: '2026-08-13', total: '₹1,299', status: 'Processing', items: 1 },
-    { id: '#1040', customer: 'John Doe', date: '2026-08-12', total: '₹3,098', status: 'Shipped', items: 3 },
-    { id: '#1039', customer: 'Emily Chen', date: '2026-08-11', total: '₹1,599', status: 'Delivered', items: 1 },
-    { id: '#1038', customer: 'Michael Ross', date: '2026-08-10', total: '₹2,598', status: 'Delivered', items: 2 },
-  ];
+  const orders = [];
 
   const getStatusColor = (status) => {
     switch(status) {
@@ -65,6 +59,13 @@ export default function OrdersTab() {
                   </td>
                 </tr>
               ))}
+              {orders.length === 0 && (
+                <tr>
+                  <td colSpan="7" className="px-6 py-12 text-center text-gray-500 font-montserrat text-sm">
+                    No recent orders found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

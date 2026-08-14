@@ -15,9 +15,9 @@ export default function OverviewTab() {
   }, []);
 
   const stats = [
-    { title: 'Total Revenue', value: '₹1,24,500', trend: '+12.5%', isUp: true },
-    { title: 'Total Orders', value: '456', trend: '+5.2%', isUp: true },
-    { title: 'Active Users', value: '1,204', trend: '-2.1%', isUp: false },
+    { title: 'Total Revenue', value: '₹0', trend: '0%', isUp: true },
+    { title: 'Total Orders', value: '0', trend: '0%', isUp: true },
+    { title: 'Active Users', value: '0', trend: '0%', isUp: false },
     { title: 'Total Products', value: productCount.toString(), trend: 'Live DB', isUp: true },
   ];
 
@@ -45,28 +45,10 @@ export default function OverviewTab() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h3 className="font-bebas text-xl tracking-widest text-black mb-6 border-b border-gray-100 pb-4">Recent Activity</h3>
         <div className="space-y-6">
-          {[
-            { action: 'New Order #1042', user: 'Maulik Kaneriya', time: '10 mins ago', amount: '₹2,498' },
-            { action: 'New User Registered', user: 'johndoe@example.com', time: '1 hour ago', amount: null },
-            { action: 'Order #1040 Shipped', user: 'System', time: '3 hours ago', amount: null },
-            { action: 'New Order #1041', user: 'Sarah Smith', time: '5 hours ago', amount: '₹1,299' },
-          ].map((activity, i) => (
-            <div key={i} className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-black">{activity.action}</p>
-                  <p className="text-xs text-gray-500">{activity.user}</p>
-                </div>
-              </div>
-              <div className="text-right">
-                {activity.amount && <p className="font-bebas text-lg text-gold">{activity.amount}</p>}
-                <p className="text-xs text-gray-400">{activity.time}</p>
-              </div>
-            </div>
-          ))}
+          {/* Empty state when no activity */}
+          <div className="py-4 text-center text-sm text-gray-400 font-montserrat">
+            No recent activity found.
+          </div>
         </div>
       </div>
     </div>
