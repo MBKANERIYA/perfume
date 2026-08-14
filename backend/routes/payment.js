@@ -3,11 +3,16 @@ const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 
-// Initialize Razorpay
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_SECRET,
-});
+// Initialize Razorpay lazily to prevent crashing the server if env vars are missing
+const getRazorpayInstance = () => {
+  if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_SECRET) {
+    throw new Error('Razorpay keys are not configured in environment variables');
+  }
+  return new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET,
+  });
+};
 
 // POST /api/payment/create-order
 router.post('/create-order', async (req, res) => {
@@ -24,6 +29,7 @@ router.post('/create-order', async (req, res) => {
       receipt: `receipt_order_${Date.now()}`,
     };
 
+    const razorpay = getRazorpayInstance();
     const order = await razorpay.orders.create(options);
     
     if (!order) {
