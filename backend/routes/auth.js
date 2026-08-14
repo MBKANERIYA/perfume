@@ -1,72 +1,73 @@
 const express = require('express');
 const router = express.Router();
-
-// In-memory user store for mock authentication
-const users = [];
+const User = require('../models/User');
 
 // POST /api/auth/register
-router.post('/register', (req, res) => {
-  const { name, email, phone, password } = req.body;
+router.post('/register', async (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body;
 
-  if (!name || !email || !password || !phone) {
-    return res.status(400).json({ message: 'Name, email, phone, and password are required' });
-  }
+    if (!name || !email || !password || !phone) {
+      return res.status(400).json({ message: 'Name, email, phone, and password are required' });
+    }
 
-  const existingUser = users.find(u => u.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'User already exists' });
-  }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
-  const newUser = {
-    id: users.length + 1,
-    name,
-    email,
-    phone,
-    password, // Storing in plain text for mock purposes only
-    token: `mock-jwt-token-${Date.now()}`
-  };
+    const newUser = new User({
+      name,
+      email,
+      phone,
+      password // Storing in plain text for mock purposes only
+    });
 
-  users.push(newUser);
+    await newUser.save();
 
-  setTimeout(() => {
-    // Exclude password from the response
-    const { password: _, ...userWithoutPassword } = newUser;
+    const { password: _, ...userWithoutPassword } = newUser.toObject();
     res.status(201).json({
       message: 'Registration successful',
-      user: userWithoutPassword
+      user: { ...userWithoutPassword, token: `mock-jwt-token-${Date.now()}` }
     });
-  }, 500);
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // POST /api/auth/login
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required' });
-  }
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
 
-  const user = users.find(u => u.email === email && u.password === password);
+    const user = await User.findOne({ email, password });
 
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials. Please register if you haven\'t.' });
-  }
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials. Please register if you haven\'t.' });
+    }
 
-  setTimeout(() => {
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = user.toObject();
     res.json({
       message: 'Login successful',
-      user: userWithoutPassword
+      user: { ...userWithoutPassword, token: `mock-jwt-token-${Date.now()}` }
     });
-  }, 500);
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // @route   GET /api/auth/users
 // @desc    Get all registered users (for admin dashboard)
 router.get('/users', async (req, res) => {
   try {
-    const usersWithoutPassword = users.map(({ password, ...user }) => user);
-    res.json(usersWithoutPassword);
+    const users = await User.find().select('-password').sort({ createdAt: -1 });
+    res.json(users);
   } catch (err) {
     console.error('Error fetching users:', err.message);
     res.status(500).send('Server Error');
@@ -74,19 +75,21 @@ router.get('/users', async (req, res) => {
 });
 
 // @route   PUT /api/auth/profile
-// @desc    Update user profile (mock)
+// @desc    Update user profile
 router.put('/profile', async (req, res) => {
   try {
     const { email, name, phone } = req.body;
-    const userIndex = users.findIndex(u => u.email === email);
     
-    if (userIndex === -1) {
+    const user = await User.findOne({ email });
+    if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    users[userIndex] = { ...users[userIndex], name, phone };
+    user.name = name;
+    user.phone = phone;
+    await user.save();
     
-    const { password: _, ...updatedUserWithoutPassword } = users[userIndex];
+    const { password: _, ...updatedUserWithoutPassword } = user.toObject();
     res.json({
       message: 'Profile updated successfully',
       user: updatedUserWithoutPassword
