@@ -24,8 +24,7 @@ export default function Footer() {
         <li><a href="#" className="hover:text-gold transition-colors">SHIPPING POLICY</a></li>
         <li><a href="#" className="hover:text-gold transition-colors">REFUND POLICY</a></li>
         <li><a href="#" className="hover:text-gold transition-colors">EXCHANGE POLICY</a></li>
-        <li><a href="#" className="hover:text-gold transition-colors">CASHBACK TERMS</a></li>
-        <li><a href="#" className="hover:text-gold transition-colors">BLOG</a></li>
+
       </ul>
     </div>
   );
@@ -106,7 +105,7 @@ export default function Footer() {
             </div>
             {/* Right Column */}
             <div className="flex-1 flex flex-col gap-y-10">
-              {InfoSection}              
+              {InfoSection}
               {FollowUsSection}
             </div>
           </div>
