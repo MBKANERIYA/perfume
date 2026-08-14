@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OverviewTab from './tabs/OverviewTab';
 import ProductsTab from './tabs/ProductsTab';
 import OrdersTab from './tabs/OrdersTab';
@@ -8,16 +8,85 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const { user, logout } = useAuth();
 
-  // Simple protection: Check if user exists. 
-  // In a real app, we'd check user.role === 'admin'
-  if (!user) {
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [adminUsername, setAdminUsername] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [adminError, setAdminError] = useState('');
+
+  useEffect(() => {
+    if (localStorage.getItem('kiz_admin_auth') === 'true') {
+      setIsAdminAuthenticated(true);
+    }
+  }, []);
+
+  const handleAdminLogin = (e) => {
+    e.preventDefault();
+    if (adminUsername === 'admin' && adminPassword === 'admin123') {
+      setIsAdminAuthenticated(true);
+      localStorage.setItem('kiz_admin_auth', 'true');
+      setAdminError('');
+    } else {
+      setAdminError('Invalid admin credentials.');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdminAuthenticated(false);
+    localStorage.removeItem('kiz_admin_auth');
+  };
+
+  if (!isAdminAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 flex-col px-4">
-        <h1 className="font-bebas text-4xl mb-4 text-black">ACCESS DENIED</h1>
-        <p className="font-montserrat text-gray-500 mb-8">You must be logged in as an administrator to view this page.</p>
-        <a href="/" className="bg-black text-white px-8 py-3 font-bebas text-xl hover:bg-gold transition-colors">
-          RETURN TO STORE
-        </a>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md w-full bg-white p-8 shadow-xl rounded-lg border border-gray-100">
+          <div className="text-center mb-8">
+            <h1 className="font-bebas text-4xl text-black">ADMIN LOGIN</h1>
+            <p className="font-montserrat text-sm text-gray-500 mt-2">Sign in to access the dashboard</p>
+          </div>
+          
+          <form onSubmit={handleAdminLogin} className="space-y-6">
+            <div>
+              <label className="block font-montserrat text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Username</label>
+              <input
+                type="text"
+                value={adminUsername}
+                onChange={(e) => setAdminUsername(e.target.value)}
+                className="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-gold transition-colors font-montserrat text-sm"
+                placeholder="Enter admin username"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block font-montserrat text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Password</label>
+              <input
+                type="password"
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                className="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-gold transition-colors font-montserrat text-sm"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            {adminError && (
+              <p className="text-red-500 text-xs font-montserrat font-medium">{adminError}</p>
+            )}
+
+            <button 
+              type="submit" 
+              className="w-full bg-black text-white font-bebas text-xl tracking-widest py-3 hover:bg-gold transition-colors duration-300"
+            >
+              LOGIN
+            </button>
+          </form>
+          
+          <div className="mt-6 text-center">
+            <a href="/" className="text-xs font-montserrat font-bold text-gray-400 hover:text-black uppercase tracking-wider transition-colors">
+              &larr; Return to Store
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -69,15 +138,15 @@ export default function AdminDashboard() {
         <div className="p-4 border-t border-gray-800">
           <div className="flex items-center gap-3 px-4 py-2">
             <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold">
-              {user?.name?.charAt(0).toUpperCase()}
+              A
             </div>
             <div className="flex-1 truncate">
-              <p className="text-sm font-bold text-white truncate">{user?.name}</p>
-              <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+              <p className="text-sm font-bold text-white truncate">Administrator</p>
+              <p className="text-xs text-gray-400 truncate">admin@kizperfumes.com</p>
             </div>
           </div>
           <button 
-            onClick={logout}
+            onClick={handleAdminLogout}
             className="w-full mt-4 bg-gray-800 hover:bg-red-600 text-white font-bebas text-lg tracking-widest py-2 rounded transition-colors"
           >
             LOGOUT

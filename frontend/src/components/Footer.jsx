@@ -24,7 +24,6 @@ export default function Footer() {
         <li><a href="#" className="hover:text-gold transition-colors">SHIPPING POLICY</a></li>
         <li><a href="#" className="hover:text-gold transition-colors">REFUND POLICY</a></li>
         <li><a href="#" className="hover:text-gold transition-colors">EXCHANGE POLICY</a></li>
-
       </ul>
     </div>
   );
