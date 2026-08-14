@@ -61,4 +61,16 @@ router.post('/login', (req, res) => {
   }, 500);
 });
 
+// @route   GET /api/auth/users
+// @desc    Get all registered users (for admin dashboard)
+router.get('/users', async (req, res) => {
+  try {
+    const usersWithoutPassword = users.map(({ password, ...user }) => user);
+    res.json(usersWithoutPassword);
+  } catch (err) {
+    console.error('Error fetching users:', err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

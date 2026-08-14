@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import OverviewTab from './tabs/OverviewTab';
 import ProductsTab from './tabs/ProductsTab';
 import OrdersTab from './tabs/OrdersTab';
+import UsersTab from './tabs/UsersTab';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AdminDashboard() {
@@ -96,6 +97,7 @@ export default function AdminDashboard() {
       case 'overview': return <OverviewTab />;
       case 'products': return <ProductsTab />;
       case 'orders': return <OrdersTab />;
+      case 'users': return <UsersTab />;
       default: return <OverviewTab />;
     }
   };
@@ -132,6 +134,17 @@ export default function AdminDashboard() {
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
             ORDERS
+          </button>
+          <button
+            onClick={() => setActiveTab('users')}
+            className={`w-full text-left px-6 py-4 font-bebas text-lg tracking-widest transition-colors flex items-center gap-3 ${
+              activeTab === 'users' ? 'bg-gold text-black border-l-4 border-white' : 'text-gray-400 hover:text-gold hover:bg-gray-900 border-l-4 border-transparent'
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            USERS
           </button>
         </nav>
 
